@@ -13,11 +13,19 @@ import (
 )
 
 func CreateTrack(w http.ResponseWriter, r *http.Request) {
-	isrc := "USVT10300001"
+	// isrc := "USVT10300001"
+
+	vars := mux.Vars(r)
+	isrc := vars["isrc"]
 
 	spotifyResponse, err := utils.SpotifyAPI(isrc)
 	if err != nil {
 		http.Error(w, "Error fetching data from Spotify API", http.StatusInternalServerError)
+		return
+	}
+
+	if len(spotifyResponse.Tracks.Items) == 0 {
+		http.Error(w, "No tracks found for the given ISRC", http.StatusNotFound)
 		return
 	}
 
@@ -39,8 +47,6 @@ func CreateTrack(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(spotifyResponse)
-
-	w.Write([]byte("Track created successfully"))
 }
 
 func GetTrackByISRC(w http.ResponseWriter, r *http.Request) {

@@ -14,7 +14,7 @@ func main() {
 
 	r := mux.NewRouter()
 
-	r.HandleFunc("/tracks", handlers.CreateTrack).Methods("POST")
+	r.HandleFunc("/tracks/{isrc}", handlers.CreateTrack).Methods("POST")
 	r.HandleFunc("/tracks/{isrc}", handlers.GetTrackByISRC).Methods("GET")
 	r.HandleFunc("/tracks/artist/{artist}", handlers.GetTracksByArtist).Methods("GET")
 
