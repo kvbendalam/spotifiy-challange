@@ -37,7 +37,7 @@ Before running the application, ensure that the following prerequisites are met:
 
 3. Access the API endpoints:
 
-   - **Create Track**: `POST /track`
+   - **Create Track**: `POST /track{isrc}`
    - **Get Track by ISRC**: `GET /track/{isrc}`
    - **Get Tracks by Artist**: `GET /tracks/artist/{artist}`
 
